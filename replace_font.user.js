@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name         Unity Font Bundle Replacer
+// @name         Kurisute Font Bundle Replacer
 // @namespace    local.font-replacer
 // @version      1.0.0
 // @description  フォントバンドルのダウンロード先を差し替え版に向ける
-// @match        https://example.com/*
+// @match        *://*/*
 // @run-at       document-start
 // @grant        none
 // ==/UserScript==
@@ -14,12 +14,13 @@
   // 差し替え対象のファイル名 (URL のクエリや前方のパスは問わない)
   const TARGET = /defaultpackage_assets_localresources_font[^/?#]*\.bundle(?=$|[?#])/;
   // 差し替え版バンドルの配置先 (CORS 許可されたホストに置くこと)
-  const REPLACEMENT_URL = 'https://raw.githubusercontent.com/USER/REPO/main/defaultpackage_assets_localresources_font.bundle';
+  // github.com/.../raw/... はリダイレクト応答に CORS ヘッダが無いため raw.githubusercontent.com を直接指す
+  const REPLACEMENT_URL = 'https://raw.githubusercontent.com/chira2chira/kurisute-font/refs/heads/master/defaultpackage_assets_localresources_font.bundle';
 
   const rewrite = (url) => {
     const s = String(url);
     if (!TARGET.test(s.split(/[?#]/)[0].split('/').pop() || '')) return url;
-    console.log('[FontReplacer]', s, '->', REPLACEMENT_URL);
+    console.log('[FontReplacer]', location.href, ':', s, '->', REPLACEMENT_URL);
     return REPLACEMENT_URL;
   };
 
