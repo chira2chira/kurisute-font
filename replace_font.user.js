@@ -3,7 +3,7 @@
 // @namespace    local.font-replacer
 // @version      1.0.0
 // @description  フォントバンドルのダウンロード先を差し替え版に向ける
-// @match        *://*/*
+// @match        https://games.mofushippo.com/CryWebAws/*
 // @run-at       document-start
 // @grant        none
 // ==/UserScript==
